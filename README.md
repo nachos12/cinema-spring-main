@@ -29,7 +29,7 @@ Pour réaliser cet exercice, vous devrez utiliser Spring Boot Web pour créer un
 
 ## Prérequis
 
-- Java 11
+- Java 19
 - Docker et Docker Compose
 
 ## Installation
