@@ -18,8 +18,8 @@ public class TicketController {
     }
 
     @PostMapping
-    public Ticket save(@RequestBody Ticket entity) {
-        return service.save(entity);
+    public Ticket reservation(@RequestBody Ticket ticket) {
+        return  service.reservation(ticket);
     }
 
     @GetMapping("{id}")
@@ -37,9 +37,5 @@ public class TicketController {
         return service.findAll();
     }
 
-    @PostMapping("/reservation")
-    public Ticket reservation(@RequestBody Ticket ticket) {
-        return  service.reservation(ticket);
-    }
 
 }

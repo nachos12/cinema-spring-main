@@ -14,6 +14,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -41,7 +42,7 @@ public class FilmController {
             Film entity = service.save(film);
             return mapper.convertValue(entity, FilmCompletDto.class);
         } catch (PropertyValueException | DataIntegrityViolationException e) {
-            logger.warn("Le film doit posséder un titre et une date de sortie. "+film);
+            logger.warn("Le film doit posséder un titre et une date de sortie. " + film);
             throw new BadRequestException("Le film doit posséder un titre et une date de sortie.");
         } catch (Exception e) {
             System.out.println(e.getClass().getSimpleName());
@@ -50,12 +51,11 @@ public class FilmController {
 
     }
 
-
     @GetMapping
     public List<FilmReduitDto> findAll() {
         return service.findAll()
                 .stream()
-                    .map(film -> mapper.convertValue(film, FilmReduitDto.class))
+                .map(film -> mapper.convertValue(film, FilmReduitDto.class))
                 .toList();
     }
 
@@ -75,42 +75,49 @@ public class FilmController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public FilmCompletDto update(@RequestBody Film film){
+    public FilmCompletDto update(@RequestBody Film film) {
         return this.save(film);
     }
 
     @GetMapping("titre/{titre}")
-    public List<FilmReduitDto> findByTitre(@PathVariable String titre){
+    public List<FilmReduitDto> findByTitre(@PathVariable String titre) {
         List<Film> entities = this.service.findByTitreContaining(titre);
         return entities.stream().map(film -> mapper.convertValue(film, FilmReduitDto.class)).toList();
     }
 
     @PostMapping("{id}/acteurs/{idActeur}")
-    public void addActeurById(@PathVariable Integer id, @PathVariable Integer idActeur){
+    public void addActeurById(@PathVariable Integer id, @PathVariable Integer idActeur) {
         this.service.addActeurById(id, idActeur);
     }
 
     @PostMapping("{id}/acteurs")
 
-    public void addActeur(@PathVariable Integer id, @RequestBody Acteur acteur){
+    public void addActeur(@PathVariable Integer id, @RequestBody Acteur acteur) {
         this.service.addActeur(id, acteur);
     }
 
     @DeleteMapping("{id}/acteurs/{idActeur}")
-    public void deleteActeur(@PathVariable Integer id, @PathVariable Integer idActeur){
+    public void deleteActeur(@PathVariable Integer id, @PathVariable Integer idActeur) {
         this.service.deleteActeurById(id, idActeur);
     }
 
 
     @PostMapping("{id}/realisateurs/{idRealisateur}")
-    public void addRealisateur(@PathVariable Integer id, @PathVariable Integer idRealisateur){
+    public void addRealisateur(@PathVariable Integer id, @PathVariable Integer idRealisateur) {
         this.service.addRealisateurById(id, idRealisateur);
     }
 
 
     @DeleteMapping("{id}/realisateurs/{idRealisateur}")
-    public void deleteRealisateur(@PathVariable Integer id, @PathVariable Integer idRealisateur){
+    public void deleteRealisateur(@PathVariable Integer id, @PathVariable Integer idRealisateur) {
         this.service.deleteRealisateurById(id, idRealisateur);
     }
+
+    @GetMapping("date/{date}")
+    public List<Film> findByDate(@PathVariable String date) {
+        List<Film> entities = this.service.findByDate(date);
+        return entities;
+    }
+
 
 }

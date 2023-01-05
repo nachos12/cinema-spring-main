@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public class FullFilmRepository {
-
+/*
     private final EntityManager entityManager;
 
     public FullFilmRepository(EntityManager entityManager) {
@@ -19,13 +19,13 @@ public class FullFilmRepository {
 
     public Film save(Film film){
         entityManager.persist(film);
-        entityManager.flush(); // synchro l'instance film avec la base de données. Ajoute donc l'id.
+        entityManager.flush();
         return film;
     }
 
 
     public Film findById(Integer id){
-        // SELECT * FROM films WHERE films.id == {id}
+
         return entityManager.find(Film.class, id);
     }
 
@@ -47,5 +47,5 @@ public class FullFilmRepository {
         entityManager.remove(film);
     }
 
-
+*/
 }
