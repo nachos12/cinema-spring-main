@@ -4,6 +4,8 @@ import fr.laraformation.spring.cinema.seances.Seance;
 import fr.laraformation.spring.cinema.seances.SeanceRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TicketService {
 
@@ -37,5 +39,9 @@ public class TicketService {
         seance.setNombrePlace(seance.getNombrePlace() - ticket.getNombrePlace());
         ticket.setSeance(seance);
         return repository.save(ticket);
+    }
+
+    public List<Ticket> findTicketBySeance(Integer id){
+        return this.repository.findBySeanceId(id);
     }
 }

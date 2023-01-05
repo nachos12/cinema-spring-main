@@ -33,4 +33,6 @@ public class SalleController {
         service.deleteById(id);
     }
 
+
+
 }

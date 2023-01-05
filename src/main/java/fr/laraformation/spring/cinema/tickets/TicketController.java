@@ -3,6 +3,8 @@ package fr.laraformation.spring.cinema.tickets;
 import fr.laraformation.spring.cinema.seances.SeanceRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("tickets")
 @CrossOrigin
@@ -37,5 +39,9 @@ public class TicketController {
         return service.findAll();
     }
 
+    @GetMapping("seance/{id}")
+    public List<Ticket> findTicketBySeance(@PathVariable Integer id){
+        return service.findTicketBySeance(id);
+    }
 
 }
